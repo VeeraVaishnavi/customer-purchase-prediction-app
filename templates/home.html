@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopper Predictor Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="card">
+        <!-- Back to Home -->
+        <a href="/" class="back-link">
+            <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Back to Home
+        </a>
+
+        <h1>Shopper Predictor</h1>
+        <p class="subtitle">Predict whether an online visitor is likely to make a purchase</p>
+
+        <form action="/predict" method="POST" class="form-grid">
+            
+            <!-- Admin Pages -->
+            <div class="form-group">
+                <label class="form-label">
+                    <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                    </svg>
+                    Admin Pages Visited
+                </label>
+                <input type="number" name="admin_pages" placeholder="Example: 3" class="form-input" required>
+                <span class="helper-text">Number of administrative pages visited</span>
+            </div>
+
+            <!-- Admin Page Duration -->
+            <div class="form-group">
+                <label class="form-label">
+                    <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                    Admin Page Duration
+                </label>
+                <input type="number" step="0.1" name="duration" placeholder="Example: 120.5" class="form-input" required>
+                <span class="helper-text">Total time spent on administrative pages (seconds)</span>
+            </div>
+
+            <!-- Month of Visit -->
+            <div class="form-group">
+                <label class="form-label">
+                    <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                        <line x1="16" y1="2" x2="16" y2="6"/>
+                        <line x1="8" y1="2" x2="8" y2="6"/>
+                        <line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                    Month of Visit
+                </label>
+                <select name="month" class="form-input" required>
+                    <option value="" disabled selected>Select month</option>
+                    <option value="Jan">January</option>
+                    <option value="Feb">February</option>
+                    <option value="Mar">March</option>
+                    <option value="Apr">April</option>
+                    <option value="May">May</option>
+                    <option value="Jun">June</option>
+                    <option value="Jul">July</option>
+                    <option value="Aug">August</option>
+                    <option value="Sep">September</option>
+                    <option value="Oct">October</option>
+                    <option value="Nov">November</option>
+                    <option value="Dec">December</option>
+                </select>
+                <span class="helper-text">Month in which the visitor accessed the website</span>
+            </div>
+
+            <!-- Visitor Type -->
+            <div class="form-group">
+                <label class="form-label">
+                    <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                    Visitor Type
+                </label>
+                <select name="visitor_type" class="form-input" required>
+                    <option value="" disabled selected>Select visitor type</option>
+                    <option value="New">New</option>
+                    <option value="Returning">Returning</option>
+                </select>
+                <span class="helper-text">Indicates whether the visitor is new or returning</span>
+            </div>
+
+            <!-- Weekend Visit -->
+            <div class="form-group">
+                <label class="form-label">
+                    <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                        <line x1="16" y1="2" x2="16" y2="6"/>
+                        <line x1="8" y1="2" x2="8" y2="6"/>
+                        <line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                    Weekend Visit
+                </label>
+                <select name="weekend" class="form-input" required>
+                    <option value="" disabled selected>Select option</option>
+                    <option value="True">Yes</option>
+                    <option value="False">No</option>
+                </select>
+                <span class="helper-text">Was the website visit made during a weekend?</span>
+            </div>
+
+            <button type="submit" class="btn-predict">Predict Purchase</button>
+        </form>
+
+        <p class="footer-text">Machine Learning Based Shopper Intent Prediction</p>
+    </div>
+
+</body>
+</html>

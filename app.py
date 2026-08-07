@@ -1,50 +1,40 @@
 from flask import Flask, render_template, request
 import pickle
-import pandas as pd
-
-# Load model bundle
-with open("shopper_tree.pkl", "rb") as f:
-    bundle = pickle.load(f)
-
-model = bundle["model"]
-encoders = bundle["encoders"]
-feature_order = bundle["feature_order"]
+import os
 
 app = Flask(__name__)
 
-def preprocess(form_data):
-    # Convert True/False strings to boolean
-    sample = {
-        k: (v if v not in ["True", "False"] else v == "True")
-        for k, v in form_data.items()
-    }
+# Optional: Load your ML model if it exists, otherwise just run the app
+model_path = 'shopper_tree.pkl'
+if os.path.exists(model_path):
+    model = pickle.load(open(model_path, 'rb'))
+else:
+    model = None
+    print("Warning: shopper_tree.pkl not found. Predictions won't work until you train the model.")
 
-    df = pd.DataFrame([sample])
-
-    # Encode categorical columns
-    for col in df.columns:
-        if col in encoders:
-            df[col] = encoders[col].transform(df[col])
-
-    # Match training column order
-    df = df.reindex(columns=feature_order).fillna(0)
-
-    return df
-
-
-@app.route("/", methods=["GET", "POST"])
+@app.route('/')
 def index():
-    prediction = None
+    # This serves the Landing Page (Get Started)
+    return render_template('index.html')
 
-    if request.method == "POST":
-        X_new = preprocess(request.form)
-        pred = model.predict(X_new)
+@app.route('/predict', methods=['GET', 'POST'])
+def predict():
+    if request.method == 'POST':
+        # Get form data
+        admin_pages = request.form.get('admin_pages')
+        duration = request.form.get('duration')
+        month = request.form.get('month')
+        visitor_type = request.form.get('visitor_type')
+        weekend = request.form.get('weekend')
 
-        # ✅ FIXED HERE (removed Revenue encoder issue)
-        prediction = bool(pred[0])
+        # TODO: Process data & pass to model
+        # prediction = model.predict([[admin_pages, duration, ...]])
+        
+        # For now, just send a message back to the form page
+        return render_template('home.html', prediction="User likely to purchase!")
+        
+    # If it's a GET request, just show the form
+    return render_template('home.html')
 
-    return render_template("index.html", prediction=prediction)
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(debug=True)
