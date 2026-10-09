@@ -101,15 +101,7 @@ Access the deployed application:
 * Enhance the user interface and data visualizations.
 * Incorporate additional customer behavior features.
 
-## Author
+## Conclusion
 
-**Harika Sai Darshini**
+The Customer Purchase Prediction App demonstrates the practical application of machine learning in understanding customer purchasing behavior. By integrating a trained machine learning model with a Flask web application, the project provides an accessible way to predict customer purchase outcomes based on input data. This project helped us gain practical experience in machine learning, data preprocessing, model integration, and web application development. It also highlights how data-driven predictions can support better business decisions and customer engagement.
 
-B.Tech in Computer Science and Engineering (AI & ML)
-
-* **GitHub:** https://github.com/harika047
-* **Portfolio:** https://harika047.github.io/my_portfolio
-
----
-
-Developed as a machine learning project to explore customer behavior analysis and purchase prediction.
